@@ -20,7 +20,17 @@
     
     <script>
         const startBtn = document.getElementById("start-btn");
-        startBtn?.addEventListener("click", () => {window?.electronAPI?.loadPage("dashboard.html");})
+        startBtn.addEventListener("click", () => {
+        if (
+          window.electronAPI &&
+          typeof window.electronAPI.loadPage === "function"
+        ) {
+          window.electronAPI.loadPage("dashboard.html");
+        } else {
+          // Fallback for non-Electron environments (e.g., browser preview)
+          window.location.href = "dashboard.html";
+        }
+      });
     </script>
 </body>
 </html>
